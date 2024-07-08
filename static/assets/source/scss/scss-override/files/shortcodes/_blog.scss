@@ -1,0 +1,118 @@
+/*
+ * Shortcode: common.scss
+ * -----------------------------------------------
+*/
+.tm-sc-blog {
+
+	&.blog-style1-current-theme {
+		.isotope-item-inner {
+			overflow: visible;
+		}
+		article {
+			@include box-shadow(0px 0px 50px rgba(5, 5, 5, 0.08));
+			background-color: #fff;
+			padding: 20px;
+			.entry-header {
+				position: relative;
+				.thumb {
+					img {
+						border-radius: 10px;
+					}
+				}
+				.post-single-meta {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					color: #fff;
+					padding: 8px 15px;
+					font-size: 16px;
+					.entry-date {
+						display: grid;
+						text-align: center;
+						line-height: 25px;
+						font-weight: 600;
+						.day {
+							display: block
+						}
+						.year {
+							display: none;
+						}
+					}
+				}
+				.link {
+					background: #333;
+					position: absolute;
+					left: 0;
+					top: 45%;
+					right: 0;
+					height: 50px;
+					width: 50px;
+					color: #fff;
+					padding: 10px;
+					text-align: center;
+					margin: 0 auto;
+					z-index: 1;
+					opacity: 0;
+					@include transition(all .4s ease-in-out);
+				}
+			}
+			.entry-content {
+				padding: 40px;
+				background-color: #fff;
+				position: relative;
+				.blog-meta {
+					font-size: 16px;
+				}
+				.entry-title {
+					margin-top: 5px;
+					line-height: 34px;
+					font-weight: 700;
+					margin-bottom: 50px;
+					position: relative;
+					&:after {
+				    content: "";
+				    background: #e8e8e8;
+				    height: 2px;
+				    width: 70px;
+				    position: absolute;
+				    bottom: -25px;
+				    left: 0;
+				    right: 0;
+				    margin: 0 auto;
+					}
+				}
+				.post-excerpt {
+					padding: 15px 0 25px;
+					margin-bottom: 0;
+				}
+				.entry-meta {
+					font-size: 14px;
+					margin-bottom: 1.2rem;
+					color: #999;
+					border-top: 1px solid rgba(204,204,204,0.3);
+					padding-top: 20px;
+					margin-top: 20px;
+				}
+				.post-btn-readmore {
+					.btn-plain-text {
+						color: #F89D35;
+						font-size: 12px;
+						&:hover,
+						&:focus {
+							color: #000;
+						}
+					}
+				}
+			}
+			&:hover {
+				box-shadow: 0 20px 30px rgba(0, 0, 0, .15);
+				.entry-header {
+					.link {
+						opacity: 1;
+						transform: rotateY(180deg);
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="description" content="Raerex - Air Conditioning Repair HTML Template"/>
+    <meta name="keywords" content="ac, air condition, air conditioning, business, cooling, handyman, heat, heating, home repair, hvac, installation, maintenance, refrigeration, repairing, ventilation"/>
+    <meta name="author" content="ThemeMascot"/>
+    <title>{% block title %}Raerex - Air Conditioning Repair HTML Template{% endblock %}</title>
+
+    {% load static %}
+    <link href="{% static 'images/favicon.png' %}" rel="shortcut icon" type="image/png">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/animate.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/javascript-plugins-bundle.css' %}" rel="stylesheet"/>
+    <link href="{% static 'js/menuzord/css/menuzord.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/style-main.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/colors/theme-skin-color-set1.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css">
+    <!-- Add Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/javascript-plugins-bundle.js' %}"></script>
+    <script src="{% static 'js/menuzord/js/menuzord.js' %}"></script>
+    <script src="{% static 'js/product-comparison.js' %}"></script>
+    <script src="{% static 'js/product-detail.js' %}"></script>
+    <style>
+        #floating-compare-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: none;
+        }
+        #compare-button {
+            background-color: #28a745;  /* Green color */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        #compare-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+
+    {% block extra_head %}{% endblock %}
+    {% block extra_css %}{% endblock %}
+
+</head>
+<body class="tm-container-1300px has-side-panel side-panel-right">
+    <div id="wrapper" class="clearfix">
+        {% include 'shop/includes/header.html' %}
+
+        <!-- Persistent Compare Button -->
+        <div id="compare-button-container" style="position: fixed; top: 50%; right: 0; transform: translateY(-50%); z-index: 1000;">
+            <button id="compareButton" class="btn btn-primary" onclick="goToComparePage()" style="display: none;">Compare (0)</button>
+        </div>
+
+        <!-- Start main-content -->
+        <div class="main-content-area">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <!-- end main-content -->
+
+        {% include 'shop/includes/footer.html' %}
+    </div>
+    <!-- end wrapper -->
+
+    <!-- Footer Scripts -->
+    <script src="{% static 'js/custom.js' %}"></script>
+    <!-- Add new JavaScript file for product comparison functionality -->
+    <script src="{% static 'js/product-comparison.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+
+     <script>
+        // Initialize compare button on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCompareFeature();
+        });
+    </script>
+</body>
+</html>

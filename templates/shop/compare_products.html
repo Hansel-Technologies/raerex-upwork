@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Product Comparison{% endblock %}
+
+{% block extra_css %}
+<style>
+    .comparison-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 30px;
+    }
+    .comparison-table th, .comparison-table td {
+        padding: 12px;
+        text-align: center;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    .comparison-table th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+    }
+    .comparison-table tr:last-child td {
+        border-bottom: none;
+    }
+    .comparison-table .feature-name {
+        text-align: left;
+        font-weight: bold;
+        background-color: #f0f0f0;
+    }
+    .product-image {
+        max-width: 150px;
+        height: auto;
+        margin-bottom: 10px;
+    }
+    .btn-add-to-cart {
+        margin-top: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-content-area">
+  <section class="page-title layer-overlay overlay-dark-3 section-typo-light bg-img-center" data-tm-bg-img="{% static 'images/bg/bg1.jpg' %}">
+    <div class="container pt-50 pb-50">
+      <div class="section-content">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <h2 class="title">Product Comparison</h2>
+            <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
+              <div class="breadcrumbs">
+                <span><a href="{% url 'shop:product_list' %}" rel="home">Home</a></span>
+                <span><i class="fa fa-angle-right"></i></span>
+                <span class="active">Product Comparison</span>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <td class="feature-name">Action</td>
+                {% for product in products %}
+                    <td>
+                        <form action="{% url 'cart:cart_add' product.id %}" method="post" class="add-to-cart-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="update" value="false">
+                            <button type="submit" class="btn btn-sm btn-success btn-add-to-cart">
+                                Add to Cart
+                            </button>
+                        </form>
+                    </td>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="feature-name">Brand</td>
+                {% for product in products %}
+                  <td>{{ product.brand }}</td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td class="feature-name">Model</td>
+                {% for product in products %}
+                  <td>{{ product.model }}</td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td class="feature-name">Price</td>
+                {% for product in products %}
+                  <td>KES {{ product.price|floatformat:2|intcomma }}</td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td class="feature-name">Cooling Capacity</td>
+                {% for product in products %}
+                  <td>{% if product.cooling_capacity %}{{ product.cooling_capacity }} kW{% else %}N/A{% endif %}</td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td class="feature-name">Heating Capacity</td>
+                {% for product in products %}
+                  <td>{% if product.heating_capacity %}{{ product.heating_capacity }} kW{% else %}N/A{% endif %}</td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td class="feature-name">Energy Efficiency</td>
+                {% for product in products %}
+                  <td>{{ product.energy_efficiency }}</td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td class="feature-name">Noise Level</td>
+                {% for product in products %}
+                  <td>{% if product.noise_level %}{{ product.noise_level }} dB{% else %}N/A{% endif %}</td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td class="feature-name">Warranty</td>
+                {% for product in products %}
+                  <td>{% if product.warranty %}{{ product.warranty }} years{% else %}N/A{% endif %}</td>
+                {% endfor %}
+              </tr>
+              <tr>
+                <td class="feature-name">Description</td>
+                {% for product in products %}
+                  <td>{{ product.description|truncatewords:30 }}</td>
+                {% endfor %}
+              </tr>
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>  </section>  </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function addToCart(productId) {
+      fetch(`/cart/add/${productId}/`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': '{{ csrf_token }}'
+          },
+          body: 'quantity=1&update=false'
+      })
+      .then(response => {
+          if (response.redirected) {
+              window.location.href = response.url;
+          } else {
+              return response.json();
+          }
+      })
+      .then(data => {
+          if (data && data.status === 'success') {
+              alert(data.message);
+              // Update cart total in the navbar or wherever you display it
+              const cartTotalElement = document.getElementById('cart-total');
+              if (cartTotalElement) {
+                  cartTotalElement.textContent = data.cart_total;
+              }
+          } else if (data && data.status === 'error') {
+              alert('Error adding product to cart: ' + data.message);
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('Error adding product to cart');
+      });
+  }
+  </script>
+{% endblock %}

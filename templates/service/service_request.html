@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Request HVAC Service - RAEREX{% endblock %}
+
+{% block extra_css %}
+<style>
+    .equipment-list {
+        display: none;
+    }
+    .equipment-list.active {
+        display: block;
+    }
+    .form-check-label {
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="main-content-area">
+    <!-- Section: page title -->
+    <section class="page-title layer-overlay overlay-dark-3 section-typo-light bg-img-center" data-tm-bg-img="{% static 'images/bg/service-banner.jpg' %}">
+        <div class="container pt-50 pb-50">
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2 class="title">Request HVAC Service</h2>
+                        <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
+                            <div class="breadcrumbs">
+                                <span><a href="{% url 'shop:product_list' %}" rel="home">Home</a></span>
+                                <span><i class="fa fa-angle-right"></i></span>
+                                <span class="active">Service Request</span>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Service Request Form -->
+    <section class="divider">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="border-1px p-30 mb-0">
+                        <h3 class="text-theme-colored1 mt-0 pt-10">Request HVAC Service</h3>
+                        <hr>
+                        <p>Please select the equipment category and specific items you need serviced.</p>
+                        <form id="service_request_form" method="post" action="{% url 'service:service_request' %}">
+                            {% csrf_token %}
+                            
+                            <!-- Step 1: Equipment Category Selection -->
+                            <div id="step1">
+                                <div class="mb-3">
+                                    <label>Select Equipment Category:</label>
+                                    <select id="category-select" class="form-control" required>
+                                        <option value="">Choose a category</option>
+                                        {% for category in equipment_categories %}
+                                            <option value="{{ category.id }}">{{ category.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Equipment Selection -->
+                            <div id="step2" style="display: none;">
+                                <div class="mb-3">
+                                    <label>Select Equipment for Service:</label>
+                                    {% for category in equipment_categories %}
+                                        <div class="equipment-list" id="category-{{ category.id }}">
+                                            {% for equipment in category.equipment_set.all %}
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="equipment" value="{{ equipment.id }}" id="equipment_{{ equipment.id }}">
+                                                    <label class="form-check-label" for="equipment_{{ equipment.id }}">
+                                                        {{ equipment.name }}
+                                                    </label>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <button type="button" class="btn btn-primary" id="next-step">Next</button>
+                            </div>
+
+                            <!-- Step 3: Service Request Details -->
+                            <div id="step3" style="display: none;">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label>Name <small>*</small></label>
+                                            {{ form.name }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label>Email <small>*</small></label>
+                                            {{ form.email }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Location <small>*</small></label>
+                                    {{ form.location }}
+                                </div>
+                                <div class="mb-3">
+                                    <label>Preferred Date <small>*</small></label>
+                                    {{ form.preferred_date }}
+                                </div>
+                                <div class="mb-3">
+                                    <label>Description of the Issue <small>*</small></label>
+                                    {{ form.description }}
+                                </div>
+                                <div class="mb-3 tm-sc-button mb-0 mt-20">
+                                    <button type="submit" class="btn btn-theme-colored1 btn-block btn-sm mt-20">Submit Service Request</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementById('category-select');
+    const step1 = document.getElementById('step1');
+    const step2 = document.getElementById('step2');
+    const step3 = document.getElementById('step3');
+    const nextStepBtn = document.getElementById('next-step');
+
+    categorySelect.addEventListener('change', function() {
+        const selectedCategory = this.value;
+        if (selectedCategory) {
+            step1.style.display = 'none';
+            step2.style.display = 'block';
+            document.querySelectorAll('.equipment-list').forEach(list => {
+                list.classList.remove('active');
+            });
+            document.getElementById(`category-${selectedCategory}`).classList.add('active');
+        }
+    });
+
+    nextStepBtn.addEventListener('click', function() {
+        const checkedEquipment = document.querySelectorAll('input[name="equipment"]:checked');
+        if (checkedEquipment.length > 0) {
+            step2.style.display = 'none';
+            step3.style.display = 'block';
+        } else {
+            alert('Please select at least one piece of equipment.');
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,25 @@
+/*
+ * Shortcode: common.scss
+ * -----------------------------------------------
+*/
+.tm-sc-blog {
+	&.blog-style1-current-theme {
+		article {
+			.entry-header {
+				.link {
+					background: $theme-color1;
+				}
+				.post-single-meta {
+					background: $theme-color1;
+				}
+			}
+			.entry-content {
+				.entry-meta {
+					i {
+						color: $theme-color1;
+					}
+				}
+			}
+		}
+	}
+}

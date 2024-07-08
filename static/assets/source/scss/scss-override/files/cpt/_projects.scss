@@ -1,0 +1,40 @@
+/*
+ * Shortcode: projects.scss
+ * -----------------------------------------------
+*/
+
+.project-item {
+	margin-top: -180px;
+	position: relative;
+}
+.project-item:after {
+    background: linear-gradient(45deg, rgba(0,0,0,0.6), transparent);
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    transition: 300ms;
+}
+.project-item:hover:after {
+    background: linear-gradient(45deg, rgba(239, 135, 78, 0.6), transparent);
+}
+.project-content {
+	background: #fff;
+	padding: 30px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	width: 80%;
+	transition: 300ms;
+	opacity: 0;
+	z-index: 2;
+}
+.project-item:hover .project-content {
+	opacity: 1;
+	bottom: 45px;
+}

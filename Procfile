@@ -1,0 +1,1 @@
+web: gunicorn raerex_ecommerce.wsgi

@@ -1,0 +1,40 @@
+/*
+ * Shortcode: services.scss
+ * -----------------------------------------------
+*/
+
+.service-item {
+	border: 1px solid #2a3e58;
+	padding: 30px;
+	border-radius: 10px;
+	.service-content {
+		.service-text {
+			color: #9cadc2;
+		}
+	}
+	.service-thumb {
+		margin-bottom: 20px;
+		img {
+	    border-radius: 10px;
+		}
+	}
+	.service-link {
+    margin-top: 55px;
+    display: inline-block;
+    position: relative;
+	    &:after {
+	    content: "";
+	    height: 2px;
+	    width: 75px;
+	    position: absolute;
+	    left: 0;
+	    top: -15px;
+		}
+		&:hover {
+			color: #fff !important;
+		}
+	}
+	&:hover {
+		background: #0E233E;
+	}
+}

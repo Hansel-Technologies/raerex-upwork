@@ -1,0 +1,84 @@
+/*
+ * form.scss
+ * -----------------------------------------------
+*/
+.tm-cf7-subscription-form-round-btn {
+	.wpcf7-form-control.wpcf7-text {
+		height: 78px;
+		padding: 0 30px;
+		font-size: 14px;
+		background: #f4f6fb;
+		border: none;
+		border-bottom: 1px solid #fff;
+		opacity: 1;
+		border-radius: 5px;
+	}
+	.submit-btn {
+		position: absolute;
+		right: 7px;
+		top: 59%;
+		transform: translateY(-50%);
+	}
+}
+
+//Masim Contact Form
+.contact-from {
+	padding: 50px 60px 50px 60px;
+	border-radius: 12px 12px 12px 0px;
+	position: relative;
+	&:after {
+		content: "";
+		position: absolute;
+		display: inline-block;
+		width: 0;
+		height: 0;
+		bottom: 0;
+		left: -95px;
+		border-style: solid;
+		border-width: 0 95px 96px 0;
+		border-color: transparent #4C9A2A transparent transparent;
+	}
+}
+.form-control {
+	border: none;
+	background: #FAF9FE;
+	height: 65px;
+	border: 1px solid #e4e4e4;
+}
+.contact-from input.form-control {
+	border: none;
+	background: #FAF9FE;
+	height: 60px;
+	margin-bottom: 25px;
+	border: 1px solid #e4e4e4;
+	border-radius: 12px;
+}
+.contact-from textarea.form-control {
+	border-radius: 12px;
+}
+
+.subscribe-icon {
+    float: left;
+    margin-top: 5px;
+    margin-right: 20px;
+}
+.subscribe-text {
+    overflow: hidden;
+    margin: 0;
+    line-height: 34px;
+    font-weight: 700;
+    font-size: 28px;
+}
+.newsletter-form input {
+    background: #fff;
+    border: none;
+    border-radius: 55px !important;
+    padding: 0 30px;
+}
+.newsletter-form .newsletter-btn {
+    position: absolute;
+    right: 10px;
+    border-radius: 70px !important;
+    top: 8px;
+    z-index: 9;
+}

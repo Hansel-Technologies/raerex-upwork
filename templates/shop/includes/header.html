@@ -1,0 +1,181 @@
+{% load static %}
+<header id="header" class="header header-layout-type-header-2rows">
+  <div class="header-top">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-auto header-top-left align-self-center text-center text-xl-start">
+          <ul class="element contact-info">
+            <li class="contact-phone"><i class="fa fa-phone font-icon sm-display-block"></i> Tel: +254 722 388 398</li>
+            <li class="contact-email"><i class="fa fa-envelope font-icon sm-display-block"></i>  info@raerex.co.ke</li>
+            <li class="contact-address"><i class="fa fa-map font-icon sm-display-block"></i> Bandari Road, Industrial Area</li>
+          </ul>
+        </div>
+        <div class="col-xl-auto ms-xl-auto header-top-right align-self-center text-center text-xl-end">
+          <div class="element pt-0 pb-0">
+            <ul class="styled-icons icon-dark icon-theme-colored1 icon-circled clearfix">
+              <li><a class="social-link" href="#"><i class="fab fa-facebook"></i></a></li>
+              <li><a class="social-link" href="#"><i class="fab fa-twitter"></i></a></li>
+              <li><a class="social-link" href="#"><i class="fab fa-youtube"></i></a></li>
+            </ul>
+          </div>
+          <div class="element pt-0 pt-lg-10 pb-0">
+            <a href="#" class="btn btn-theme-colored2 btn-sm ajaxload-popup">Go To Raerex Website</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="header-nav tm-enable-navbar-hide-on-scroll">
+    <div class="header-nav-wrapper navbar-scrolltofixed">
+      <div class="menuzord-container header-nav-container">
+        <div class="container position-relative">
+          <div class="row header-nav-col-row">
+            <div class="col-sm-auto align-self-center">
+              <a class="menuzord-brand site-brand" href="{% url 'shop:product_list' %}">
+                <img class="logo-default logo-1x" src="{% static 'images/logo-wide.png' %}" alt="Logo">
+                <img class="logo-default logo-2x retina" src="{% static 'images/logo-wide@2x.png' %}" alt="Logo">
+              </a>
+            </div>
+            <div class="col-sm-auto ms-auto pr-0 align-self-center">
+              <nav id="top-primary-nav" class="menuzord theme-color2" data-effect="fade" data-animation="none" data-align="right">
+                <ul id="main-nav" class="menuzord-menu">
+                  <li class="active menu-item"><a href="{% url 'shop:product_list' %}">Home</a></li>
+                  <li class="menu-item"><a href="#">Service</a>
+                    <ul class="dropdown">
+                      <li><a href="{% url 'service:service_request' %}">Request Service</a></li>
+                      <li><a href="{% url 'service:equipment_list' %}">Equipment List</a></li>
+                      <li><a href="{% url 'service:service_history' %}">Service History</a></li>
+                    </ul></li>
+                 
+                </ul>
+              </nav>
+            </div>
+            <div class="col-sm-auto align-self-center nav-side-icon-parent">
+              <ul class="list-inline nav-side-icon-list">
+                <li class="hidden-mobile-mode">
+                  <div class="search-form-wrapper">
+                    <a href="#" id="top-nav-search-btn"><i class="search-icon fa fa-search"></i></a>
+                    <form action="{% url 'shop:product_search' %}" method="get" class="search-form" style="display: none;">
+                      <input type="text" name="query" placeholder="Search products..." class="search-input">
+                      <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
+                    </form>
+                  </div>
+                </li>
+                <li class="hidden-mobile-mode">
+                  <div class="top-nav-mini-cart-icon-container">
+                    <div class="top-nav-mini-cart-icon-contents">
+                      <a class="mini-cart-icon" href="{% url 'shop:cart_detail' %}" title="View your shopping cart">
+                        <img src="{% static 'images/shopping-cart.png' %}" width="25" alt="cart">
+                        <span class="items-count">{{ cart.get_total_items }}</span>
+                        <span class="cart-quick-info">{{ cart.get_total_items }} item(s) - 
+                          <span class="amount">
+                            <span class="currencySymbol">KES </span>{{ cart.get_total_price }}
+                          </span>
+                        </span>
+                      </a>
+                      <div class="dropdown-content">
+                        <ul class="cart_list product_list_widget">
+                          {% for item in cart %}
+                            <li class="mini_cart_item">
+                              <a href="{% url 'shop:cart_remove' item.product.id %}" class="remove remove_from_cart_button" aria-label="Remove this item">&times;</a>
+                              <a href="{{ item.product.get_absolute_url }}">
+                                <img class="attachment-thumbnail" src="{{ item.product.image.url }}" width="300" height="300" alt="{{ item.product.name }}"/>
+                                {{ item.product.name }}
+                              </a>
+                              <span class="quantity">{{ item.quantity }} &times; 
+                                <span class="amount">
+                                  <span class="currencySymbol">KES </span>{{ item.price }}
+                                </span>
+                              </span>
+                            </li>
+                          {% empty %}
+                            <li class="empty">Your cart is empty.</li>
+                          {% endfor %}
+                        </ul>
+                        {% if cart %}
+                          <p class="total"> 
+                            <strong>Subtotal:</strong> 
+                            <span class="woocommerce-Price-amount amount">
+                              <span class="currencySymbol">KES </span>{{ cart.get_total_price }}
+                            </span>
+                          </p>
+                          <div class="buttons cart-action-buttons">
+                            <div class="row">
+                              <div class="col-6 pe-0">
+                                <a href="{% url 'shop:cart_detail' %}" class="btn btn-theme-colored2 btn-block btn-sm wc-forward">View Cart</a>
+                              </div>
+                              <div class="col-6 ps-1">
+                                <a href="{% url 'orders:order_create' %}" class="btn btn-theme-colored1 btn-block btn-sm checkout wc-forward">Checkout</a>
+                              </div>
+                            </div>
+                          </div>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li class="hidden-mobile-mode">
+                  <div id="side-panel-trigger" class="side-panel-trigger">
+                    <a href="#">
+                      <div class="hamburger-box">
+                        <div class="hamburger-inner"></div>
+                      </div>
+                    </a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const searchBtn = document.getElementById('top-nav-search-btn');
+  const searchForm = document.querySelector('.search-form');
+
+  searchBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    searchForm.style.display = searchForm.style.display === 'none' ? 'block' : 'none';
+  });
+
+  // Close search form when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!searchForm.contains(e.target) && e.target !== searchBtn) {
+      searchForm.style.display = 'none';
+    }
+  });
+});
+</script>
+
+<style>
+.search-form-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.search-form {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+.search-input {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  width: 200px;
+}
+.search-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+</style>

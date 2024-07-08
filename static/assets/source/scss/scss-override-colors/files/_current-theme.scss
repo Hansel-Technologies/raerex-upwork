@@ -1,0 +1,48 @@
+/*
+ * Shortcode: current-theme.scss
+ * -----------------------------------------------
+*/
+
+.feature:hover:after {
+	background: $theme-color1;
+}
+.feature-item:hover {
+	background: $theme-color1;
+}
+.features-icon i {
+	background: $theme-color3;
+}
+.features-block .features-icon i:hover {
+	background: $theme-color1;
+}
+.service-feature-icon i {
+	background: $theme-color1;
+}
+.book-service-area {
+	border-color: $theme-color2;
+}
+.cp-video-divider .play-video-button .effect-wrapper {
+	background: $theme-color1;
+}
+
+.google-map .call-for-estimate {
+	background: $theme-color2;
+}
+.tm-sc-progress {
+	&.theme-style {
+		.tm-sc-progress-bar {
+			.progress-title-holder {
+				.percent {
+					background: $theme-color1;
+				}
+			}
+			.progress-holder {
+				.progress-content {
+					&:after {
+						background: $theme-color1;
+					}
+				}
+			}
+		}
+	}
+}

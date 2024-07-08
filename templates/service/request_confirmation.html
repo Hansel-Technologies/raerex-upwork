@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Service Request Confirmation - RAEREX{% endblock %}
+
+{% block content %}
+<div class="main-content-area">
+    <section class="page-title layer-overlay overlay-dark-3 section-typo-light bg-img-center" data-tm-bg-img="{% static 'images/bg/bg1.jpg' %}">
+        <div class="container pt-50 pb-50">
+            <div class="section-content">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2 class="title">Service Request Confirmation</h2>
+                        <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
+                            <div class="breadcrumbs">
+                                <span><a href="{% url 'shop:product_list' %}" rel="home">Home</a></span>
+                                <span><i class="fa fa-angle-right"></i></span>
+                                <span class="active">Confirmation</span>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container mt-50 mb-50">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="border-1px p-30">
+                        <h3 class="text-theme-colored1 mt-0 pt-10">Thank You for Your Service Request</h3>
+                        <hr>
+                        <p>Your service request has been successfully submitted. Our team will review your request and contact you shortly to confirm the details and schedule the service.</p>
+                        <p>If you have any questions or need to update your request, please don't hesitate to contact us.</p>
+                        <a href="{% url 'shop:product_list' %}" class="btn btn-theme-colored1 mt-20">Return to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,174 @@
+<!--templates/shop/product/detail.html-->
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<!-- Start main-content -->
+<div class="main-content-area">
+  <!-- Section: page title -->
+  <section class="page-title layer-overlay overlay-dark-3 section-typo-light bg-img-center" data-tm-bg-img="{% static 'images/bg/bg1.jpg' %}">
+    <div class="container pt-50 pb-50">
+      <div class="section-content">
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <h2 class="title">{{ product.name }}</h2>
+            <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
+              <div class="breadcrumbs">
+                <span><a href="{% url 'shop:product_list' %}" rel="home">Home</a></span>
+                <span><i class="fa fa-angle-right"></i></span>
+                <span><a href="{% url 'shop:product_list_by_category' product.category.slug %}">{{ product.category.name }}</a></span>
+                <span><i class="fa fa-angle-right"></i></span>
+                <span class="active">{{ product.name }}</span>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-content">
+        <div class="product-single">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="product-image-slider lightgallery-lightbox">
+                <div class="tm-owl-thumb-carousel" data-nav="true" data-slider-id="1">
+                    {% if product.image %}
+                        <div data-thumb="{{ product.get_image_url }}">
+                            <a class="lightgallery-trigger" data-exthumbimage="{{ product.get_image_url }}" data-src="{{ product.get_image_url }}" title="{{ product.name }}" href="{{ product.get_image_url }}">
+                                <img class="img-fullwidth" src="{{ product.get_image_url }}" alt="{{ product.name }}">
+                            </a>
+                        </div>
+                    {% endif %}
+                    {% for image in additional_images %}
+                        <div data-thumb="{{ image.image.url }}">
+                            <a class="lightgallery-trigger" data-exthumbimage="{{ image.image.url }}" data-src="{{ image.image.url }}" title="{{ product.name }}" href="{{ image.image.url }}">
+                                <img class="img-fullwidth" src="{{ image.image.url }}" alt="{{ product.name }}">
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <ul class="tm-owl-thumbs" data-slider-id="1">
+                  {% if product.image %}
+                    <li class="tm-owl-thumb-item"><img src="{{ product.get_image_url }}" alt="{{ product.name }}"></li>
+                  {% endif %}
+                  {% for image in additional_images %}
+                    <li class="tm-owl-thumb-item"><img src="{{ image.image.url }}" alt="{{ product.name }}"></li>
+                  {% endfor %}
+                </ul>
+            </div>
+            </div>
+            <div class="col-md-6">
+              <div class="product-summary">
+                <h2 class="product-title mt-0">{{ product.name }}</h2>
+                <p class="price"><span class="amount"><span class="currency-symbol">KES </span>{{ product.price|floatformat:2|intcomma }}</span></p>
+                <div class="short-description">
+                  <p>{{ product.description }}</p>
+                </div>
+                <div class="product_meta">
+                  <span class="sku_wrapper">SKU: <span class="sku">{{ product.id }}</span></span>
+                  <span class="posted_in">Category: <a href="{% url 'shop:product_list_by_category' product.category.slug %}" rel="tag">{{ product.category.name }}</a></span>
+                </div>
+                <div class="btn-add-to-cart">
+                  <form action="{% url 'cart:cart_add' product.id %}" method="post" class="d-flex align-items-center">
+                    {% csrf_token %}
+                    <div class="quantity mr-10">
+                      <input class="minus" type="button" value="-">
+                      <input type="number" name="quantity" value="1" title="Qty" size="4" min="1" max="" class="input-text qty text">
+                      <input class="plus" type="button" value="+">
+                    </div>
+                    <input type="hidden" name="update" value="False">
+                    <button type="submit" class="btn btn-theme-colored1">Add to cart</button>
+                  </form>
+                </div>
+                <div class="mt-20">
+                  <button class="btn btn-info" onclick="addToCompare({{ product.id }}, '{{ product.name }}')">
+                    <i class="fas fa-exchange-alt"></i> Add to Compare
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mt-60">
+              <div class="horizontal-tab product-tab">
+                <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <li class="nav-item">
+                    <button class="nav-link active" id="desc-tab" data-bs-toggle="tab" data-bs-target="#desc-content" role="tab" aria-controls="desc-content" aria-selected="true"><strong>Description</strong></button>
+                  </li>
+                  <li class="nav-item">
+                    <button class="nav-link" id="addinfo-tab" data-bs-toggle="tab" data-bs-target="#addinfo-content" role="tab" aria-controls="addinfo-content" aria-selected="false"><strong>Additional Information</strong></button>
+                  </li>
+                </ul>
+                <div class="tab-content" id="nav-tabContent">
+                  <div class="tab-pane fade show active p-20" id="desc-content" role="tabpanel" aria-labelledby="desc-tab">
+                    <p>{{ product.description }}</p>
+                  </div>
+                  <div class="tab-pane fade p-20" id="addinfo-content" role="tabpanel" aria-labelledby="addinfo-tab">
+                    <table class="table table-striped">
+                      <tbody>
+                        {% for key, value in additional_info.items %}
+                        <tr>
+                          <th>{{ key }}</th>
+                          <td>{{ value }}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Products Section -->
+  <section>
+    <div class="container">
+      <div class="section-content">
+        <h4 class="mb-30">Related Products</h4>
+        <div class="row">
+          {% for related_product in related_products %}
+          <div class="col-md-3 mb-30">
+            <div class="product">
+              <div class="product-header">
+                <div class="thumb image-swap">
+                  <a href="{% url 'shop:product_detail' related_product.id related_product.slug %}">
+                    <img src="{{ related_product.get_image_url }}" class="product-main-image img-responsive img-fullwidth" alt="{{ related_product.name }}">
+                  </a>
+                </div>
+                <div class="product-button-holder">
+                  <ul class="shop-icons">
+                    <li class="item"><a href="{% url 'shop:cart_add' related_product.id %}" class="button tm-btn-add-to-cart">Add to cart</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="product-details">
+                <span class="product-categories"><a href="{% url 'shop:product_list_by_category' related_product.category.slug %}" rel="tag">{{ related_product.category.name }}</a></span>
+                <h5 class="product-title"><a href="{% url 'shop:product_detail' related_product.id related_product.slug %}">{{ related_product.name }}</a></h5>
+                <span class="price">
+                  <span class="amount"><span class="currency-symbol">KES </span>{{ related_product.price|floatformat:2|intcomma }}</span>
+                </span>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- end main-content -->
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeProductDetail({{ product.id }}, "{{ product.name }}");
+  });
+</script>
+{% endblock %}
