@@ -1,4 +1,3 @@
-<!--templates/shop/product/list.html-->
 {% extends "base.html" %}
 {% load static %}
 {% load humanize %}
@@ -34,13 +33,16 @@
         <div class="section-content">
           <div class="row">
             <div class="col-md-12">
-              <!-- HVAC Categories Filter -->
-              <div class="isotope-layout-filter filter-style-4 text-left cat-filter-default text-center" data-link-with="gallery-holder-618422">
-                <!-- ... (filter content remains the same) ... -->
+              <!-- Isotope Filter -->
+              <div class="isotope-layout-filter filter-style-4 text-left cat-filter-default text-center mb-50" data-link-with="gallery-holder-618422">
+                <a href="{% url 'shop:product_list' %}" class="{% if not category %}active{% endif %}" data-filter="*">ALL</a>
+                {% for c in categories %}
+                  <a href="{{ c.get_absolute_url }}" class="{% if category.slug == c.slug %}active{% endif %}" data-filter=".{{ c.slug }}">{{ c.name|upper }}</a>
+                {% endfor %}
               </div>
-              <!-- End HVAC Categories Filter -->
-  
-              <!-- HVAC Products Grid -->
+              <!-- End Isotope Filter -->
+
+              <!-- Isotope Gallery Grid -->
               <div id="gallery-holder-618422" class="isotope-layout grid-3 gutter-15 clearfix lightgallery-lightbox">
                 <div class="isotope-layout-inner">
                   {% for product in products %}
@@ -90,7 +92,7 @@
                   {% endfor %}
                 </div>
               </div>
-              <!-- End HVAC Products Grid -->
+              <!-- End Isotope Gallery Grid -->
             </div>
           </div>
         </div>
