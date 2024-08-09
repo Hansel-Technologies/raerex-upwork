@@ -1,7 +1,15 @@
+#orders/models.py
 from django.db import models
 from shop.models import Product
+from django.utils.translation import gettext_lazy as _
 
 class Order(models.Model):
+    PAYMENT_METHODS = (
+        ('bank_transfer', _('Direct Bank Transfer')),
+        ('cheque', _('Cheque Payment')),
+        ('paypal', _('PayPal Payment')),
+        # Add more payment methods as needed
+    )
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()
@@ -11,6 +19,7 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHODS, default='bank_transfer')
 
     class Meta:
         ordering = ['-created']

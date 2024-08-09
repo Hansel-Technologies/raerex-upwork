@@ -5,26 +5,23 @@
 
 {% block content %}
 <div class="main-content-area">
-    <section class="page-title layer-overlay overlay-dark-3 section-typo-light bg-img-center" data-tm-bg-img="{% static 'images/bg/bg1.jpg' %}">
+    <section class="section page-title section-typo-light" style="background-color: #4c9a2a;">
         <div class="container pt-50 pb-50">
             <div class="section-content">
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <h2 class="title">Service Request Confirmation</h2>
-                        <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
-                            <div class="breadcrumbs">
-                                <span><a href="{% url 'shop:product_list' %}" rel="home">Home</a></span>
-                                <span><i class="fa fa-angle-right"></i></span>
-                                <span class="active">Confirmation</span>
-                            </div>
-                        </nav>
+                        <div class="breadcrumbs">
+                            <a href="{% url 'shop:product_list' %}" rel="home">Home</a>
+                            <span class="active">Confirmation</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section>
+    <section class="section">
         <div class="container mt-50 mb-50">
             <div class="row">
                 <div class="col-md-8 offset-md-2">

@@ -17,6 +17,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -28,23 +29,13 @@ INSTALLED_APPS = [
     'shop',
     'cart',
     'orders',
-    'django.contrib.humanize',
-    'cms',
-    'service',
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail',
-    'modelcluster',
-    'taggit',
+    'admin_theme',
+    'admin_panel',
+    'django.contrib.humanize',   
+    'service',    
     'whitenoise.runserver_nostatic',
+    'webpack_loader',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +47,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'raerex_ecommerce.urls'
@@ -64,7 +54,10 @@ ROOT_URLCONF = 'raerex_ecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [
+            BASE_DIR / 'templates',
+            BASE_DIR / 'admin_theme' / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -81,44 +74,52 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'raerex_ecommerce.wsgi.application'
 
-# Database
+# Database configuration
 DATABASES = {
     'default': dj_database_url.config(default=config('DATABASE_URL'), conn_max_age=600)
 }
+
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    BASE_DIR / 'admin_theme' / 'static',
+]
+# Use the default static files storage for now
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Wagtail settings
-WAGTAIL_SITE_NAME = 'raerex_ecommerce'
-WAGTAIL_USER_PROFILE_MODEL = 'cms.CustomUserProfile'
+# Admin Datta settings
+ADMIN_DATTA = {
+    'SITE_TITLE': 'RAEREX Admin',
+    'SITE_HEADER': 'RAEREX',
+    'INDEX_TITLE': 'RAEREX Administration',
+    'THEME': 'dark',  # or 'light'
+    'FAVICON': None,  # Set to None or provide a valid path
+    'SHOW_THEMES': True,
+    'SHOW_CUSTOMIZER': True,
+}
 
-# Security settings
-#SECURE_BROWSER_XSS_FILTER = True
-#SECURE_CONTENT_TYPE_NOSNIFF = True
-#CSRF_COOKIE_SECURE = True
-#SESSION_COOKIE_SECURE = True
-#SECURE_SSL_REDIRECT = False
-#SECURE_HSTS_SECONDS = 31536000  # 1 year
-#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#SECURE_HSTS_PRELOAD = True
+# Other settings (keep your existing configurations for these)
+LANGUAGE_CODE = 'en-us'
+TIME_ZONE = 'UTC'
+USE_I18N = True
+USE_L10N = True
+USE_TZ = True
+
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
 SECURE_SSL_REDIRECT = False
 
-# Other settings
 CART_SESSION_ID = 'cart'
-
 # Logging
 LOGGING = {
     'version': 1,
@@ -135,3 +136,22 @@ LOGGING = {
         },
     },
 }
+
+# Use WhiteNoise for static file storage in production
+if not DEBUG:
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+else:
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'webpack_bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
+
+AUTH_USER_MODEL = 'admin_panel.CustomUser'
+
+LOGIN_REDIRECT_URL = '/'  # Redirect to home page after login
+LOGOUT_REDIRECT_URL = '/'  # Redirect to home page after logout
+LOGIN_URL = '/accounts/login/'  # URL to redirect to for login

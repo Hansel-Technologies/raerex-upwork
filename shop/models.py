@@ -2,7 +2,7 @@
 from django.db import models
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.core.files.base import ContentFile
 
 class Category(models.Model):
@@ -48,6 +48,14 @@ class Product(models.Model):
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    catalogue = models.FileField(upload_to='product_catalogues/', blank=True, null=True)
+    requires_installation = models.BooleanField(default=False)
+
+
+    def get_catalogue_url(self):
+        if self.catalogue:
+            return self.catalogue.url
+        return None
 
     class Meta:
         ordering = ['name']
@@ -75,9 +83,8 @@ class ProductImage(models.Model):
     def __str__(self):
         return f"Image for {self.product.name}"
 
-
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -135,3 +142,5 @@ class OrderItem(models.Model):
 
     def get_cost(self):
         return self.price * self.quantity
+    
+

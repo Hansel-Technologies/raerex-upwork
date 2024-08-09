@@ -8,7 +8,7 @@ $total-theme-colors: 4;
 $theme-color1: #ff9046;
 $theme-color2: #24589b;
 $theme-color3: #20222e;
-$theme-color4: #122a48;
+$theme-color4: #4c9a2a;
 
 @function hexToRGB($hex) {
   @return red($hex), green($hex), blue($hex);

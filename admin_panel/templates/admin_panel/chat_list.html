@@ -1,0 +1,37 @@
+{% extends 'admin_theme/layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">Active Chat Sessions</h4>
+
+    <div class="card">
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>User</th>
+                        <th>Started</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    {% for session in active_sessions %}
+                    <tr>
+                        <td>{{ session.user.username }}</td>
+                        <td>{{ session.created_at }}</td>
+                        <td>
+                            <a href="{% url 'admin_panel:admin_chat_detail' session.id %}" class="btn btn-primary btn-sm">View Chat</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No active chat sessions</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

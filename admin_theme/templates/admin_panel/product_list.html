@@ -1,0 +1,55 @@
+{% extends 'admin_theme/layouts/base.html' %}
+{% load static %}
+{% block title %}Product List - Raerex Admin{% endblock %}
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">Product List</h4>
+
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Products</h5>
+            {% if request.user.is_superadmin %}
+            <a href="{% url 'admin_panel:product_create' %}" class="btn btn-primary">Add New Product</a>
+            {% endif %}
+        </div>
+
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Available</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category.name }}</td>
+                        <td>{{ product.price }}</td>
+                        <td>
+                            {% if product.available %}
+                            <span class="badge bg-label-success">Yes</span>
+                            {% else %}
+                            <span class="badge bg-label-danger">No</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if request.user.is_superadmin %}
+                            <a href="{% url 'admin_panel:product_update' product.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <a href="{% url 'admin_panel:product_delete' product.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

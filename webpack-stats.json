@@ -1,0 +1,21 @@
+{
+  "status": "done",
+  "assets": {
+    "main-80dca1b8738d12099b61.js": {
+      "name": "main-80dca1b8738d12099b61.js",
+      "path": "C:\\Users\\Thiani\\Desktop\\Raerex Ecommerce\\static\\webpack_bundles\\main-80dca1b8738d12099b61.js",
+      "publicPath": "/static/webpack_bundles/main-80dca1b8738d12099b61.js"
+    },
+    "main-80dca1b8738d12099b61.js.LICENSE.txt": {
+      "name": "main-80dca1b8738d12099b61.js.LICENSE.txt",
+      "path": "C:\\Users\\Thiani\\Desktop\\Raerex Ecommerce\\static\\webpack_bundles\\main-80dca1b8738d12099b61.js.LICENSE.txt",
+      "publicPath": "/static/webpack_bundles/main-80dca1b8738d12099b61.js.LICENSE.txt"
+    }
+  },
+  "chunks": {
+    "main": [
+      "main-80dca1b8738d12099b61.js"
+    ]
+  },
+  "publicPath": "/static/webpack_bundles/"
+}

@@ -5,26 +5,23 @@
 
 {% block content %}
 <div class="main-content-area">
-    <section class="page-title layer-overlay overlay-dark-3 section-typo-light bg-img-center" data-tm-bg-img="{% static 'images/bg/bg1.jpg' %}">
+    <section class="section page-title section-typo-light" style="background-color: #4c9a2a;">
         <div class="container pt-50 pb-50">
             <div class="section-content">
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <h2 class="title">Equipment List</h2>
-                        <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
-                            <div class="breadcrumbs">
-                                <span><a href="{% url 'shop:product_list' %}" rel="home">Home</a></span>
-                                <span><i class="fa fa-angle-right"></i></span>
-                                <span class="active">Equipment List</span>
-                            </div>
-                        </nav>
+                        <div class="breadcrumbs">
+                            <a href="{% url 'shop:product_list' %}" rel="home">Home</a>
+                            <span class="active">Equipment List</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section>
+    <section class="section">
         <div class="container mt-50 mb-50">
             <div class="row">
                 <div class="col-md-12">
@@ -33,16 +30,15 @@
                     {% if equipment_categories %}
                         {% for category in equipment_categories %}
                             <h4>{{ category.name }}</h4>
-                            <ul class="list-unstyled">
-                                {% for equipment in category.equipment_set.all %}
-                                    <li class="mb-10">
-                                        <i class="fas fa-check-circle text-theme-colored1 mr-10"></i>
-                                        {{ equipment.name }}
-                                    </li>
-                                {% empty %}
-                                    <li>No equipment available in this category.</li>
-                                {% endfor %}
-                            </ul>
+                            {% if category.equipment_set.all %}
+                                <ul>
+                                    {% for equipment in category.equipment_set.all %}
+                                        <li>{{ equipment.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No equipment available in this category.</p>
+                            {% endif %}
                         {% endfor %}
                     {% else %}
                         <p>No equipment categories available.</p>

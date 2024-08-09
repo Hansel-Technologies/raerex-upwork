@@ -1,0 +1,90 @@
+{% extends 'admin_theme/layouts/base.html' %}
+{% load static %}
+
+{% block title %}Reports - RAEREX Admin{% endblock %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">Reports</h4>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <h5 class="card-header">Sales Over Time</h5>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>Total Sales</th>
+                                <th>Order Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for sale in sales_over_time %}
+                            <tr>
+                                <td>{{ sale.month|date:"F Y" }}</td>
+                                <td>${{ sale.total_sales|floatformat:2 }}</td>
+                                <td>{{ sale.order_count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <h5 class="card-header">Top Selling Products</h5>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Total Sold</th>
+                                <th>Revenue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in top_products %}
+                            <tr>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.total_sold }}</td>
+                                <td>${{ product.revenue|floatformat:2 }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <h5 class="card-header">Service Request Statistics</h5>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for stat in service_stats %}
+                            <tr>
+                                <td>{{ stat.status }}</td>
+                                <td>{{ stat.count }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

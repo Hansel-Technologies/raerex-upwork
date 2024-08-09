@@ -1,0 +1,15 @@
+<!--admin_theme\templates\admin_theme\partials\footer.html-->
+<footer class="content-footer footer bg-footer-theme">
+  <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+    <div class="mb-2 mb-md-0">
+      © {% now "Y" %}, made  by
+      <a href="https://raerex.com" target="_blank" class="footer-link fw-bolder">Hansel Technologies</a>
+    </div>
+    <div>
+      <a href="{% url 'shop:product_list' %}" class="footer-link me-4" target="_blank">Shop</a>
+      <a href="{% url 'service:service_request' %}" class="footer-link me-4" target="_blank">Services</a>
+      <a href="#" class="footer-link me-4" target="_blank">About Us</a>
+      <a href="#" class="footer-link" target="_blank">Contact</a>
+    </div>
+  </div>
+</footer>

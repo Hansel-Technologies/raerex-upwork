@@ -1,0 +1,287 @@
+admin_panel
+├── admin.py
+├── apps.py
+├── forms.py
+├── migrations
+│   ├── 0001_initial.py
+│   ├── 0002_alter_customuser_user_type.py
+│   ├── __init__.py
+│   └── __pycache__
+│       ├── 0001_initial.cpython-312.pyc
+│       ├── 0002_alter_customuser_user_type.cpython-312.pyc
+│       └── __init__.cpython-312.pyc
+├── models.py
+├── templates
+│   └── admin_panel
+│       ├── edit_user.html
+│       └── user_management.html
+├── tests.py
+├── urls.py
+├── views.py
+├── __init__.py
+└── __pycache__
+    ├── admin.cpython-312.pyc
+    ├── apps.cpython-312.pyc
+    ├── forms.cpython-312.pyc
+    ├── models.cpython-312.pyc
+    ├── urls.cpython-312.pyc
+    ├── views.cpython-312.pyc
+    └── __init__.cpython-312.pyc
+
+
+
+admin_theme
+├── admin.py
+├── apps.py
+├── migrations
+│   ├── __init__.py
+│   └── __pycache__
+│       └── __init__.cpython-312.pyc
+├── models.py
+├── static
+│   └── admin_theme
+│       ├── assets
+│       │   ├── css
+│       │   │   └── demo.css
+│       │   ├── img
+│       │   │   ├── avatars
+│       │   │   │   ├── 1.png
+│       │   │   │   ├── 5.png
+│       │   │   │   ├── 6.png
+│       │   │   │   └── 7.png
+│       │   │   ├── backgrounds
+│       │   │   │   └── 18.jpg
+│       │   │   ├── elements
+│       │   │   │   ├── 1.jpg
+│       │   │   │   ├── 11.jpg
+│       │   │   │   ├── 12.jpg
+│       │   │   │   ├── 13.jpg
+│       │   │   │   ├── 17.jpg
+│       │   │   │   ├── 18.jpg
+│       │   │   │   ├── 19.jpg
+│       │   │   │   ├── 2.jpg
+│       │   │   │   ├── 20.jpg
+│       │   │   │   ├── 3.jpg
+│       │   │   │   ├── 4.jpg
+│       │   │   │   ├── 5.jpg
+│       │   │   │   └── 7.jpg
+│       │   │   ├── favicon
+│       │   │   │   └── favicon.ico
+│       │   │   ├── icons
+│       │   │   │   ├── brands
+│       │   │   │   │   ├── asana.png
+│       │   │   │   │   ├── behance.png
+│       │   │   │   │   ├── dribbble.png
+│       │   │   │   │   ├── facebook.png
+│       │   │   │   │   ├── github.png
+│       │   │   │   │   ├── google.png
+│       │   │   │   │   ├── instagram.png
+│       │   │   │   │   ├── mailchimp.png
+│       │   │   │   │   ├── slack.png
+│       │   │   │   │   └── twitter.png
+│       │   │   │   └── unicons
+│       │   │   │       ├── cc-primary.png
+│       │   │   │       ├── cc-success.png
+│       │   │   │       ├── cc-warning.png
+│       │   │   │       ├── chart-success.png
+│       │   │   │       ├── chart.png
+│       │   │   │       ├── paypal.png
+│       │   │   │       ├── wallet-info.png
+│       │   │   │       └── wallet.png
+│       │   │   ├── illustrations
+│       │   │   │   ├── girl-doing-yoga-light.png
+│       │   │   │   ├── man-with-laptop-light.png
+│       │   │   │   └── page-misc-error-light.png
+│       │   │   └── layouts
+│       │   │       ├── layout-container-light.png
+│       │   │       ├── layout-fluid-light.png
+│       │   │       ├── layout-without-menu-light.png
+│       │   │       └── layout-without-navbar-light.png
+│       │   ├── js
+│       │   │   ├── config.js
+│       │   │   ├── dashboards-analytics.js
+│       │   │   ├── extended-ui-perfect-scrollbar.js
+│       │   │   ├── form-basic-inputs.js
+│       │   │   ├── main.js
+│       │   │   ├── pages-account-settings-account.js
+│       │   │   ├── ui-modals.js
+│       │   │   ├── ui-popover.js
+│       │   │   └── ui-toasts.js
+│       │   └── vendor
+│       │       ├── css
+│       │       │   ├── core.css
+│       │       │   ├── pages
+│       │       │   │   ├── page-account-settings.css
+│       │       │   │   ├── page-auth.css
+│       │       │   │   ├── page-icons.css
+│       │       │   │   └── page-misc.css
+│       │       │   └── theme-default.css
+│       │       ├── fonts
+│       │       │   ├── boxicons
+│       │       │   │   ├── boxicons.eot
+│       │       │   │   ├── boxicons.svg
+│       │       │   │   ├── boxicons.ttf
+│       │       │   │   ├── boxicons.woff
+│       │       │   │   └── boxicons.woff2
+│       │       │   └── boxicons.css
+│       │       ├── js
+│       │       │   ├── bootstrap.js
+│       │       │   ├── helpers.js
+│       │       │   └── menu.js
+│       │       └── libs
+│       │           ├── apex-charts
+│       │           │   ├── apex-charts.css
+│       │           │   └── apexcharts.js
+│       │           ├── highlight
+│       │           │   ├── highlight-github.css
+│       │           │   ├── highlight.css
+│       │           │   └── highlight.js
+│       │           ├── jquery
+│       │           │   └── jquery.js
+│       │           ├── masonry
+│       │           │   └── masonry.js
+│       │           ├── perfect-scrollbar
+│       │           │   ├── perfect-scrollbar.css
+│       │           │   └── perfect-scrollbar.js
+│       │           └── popper
+│       │               └── popper.js
+│       ├── fonts
+│       │   └── boxicons.scss
+│       ├── js
+│       │   ├── bootstrap.js
+│       │   ├── helpers.js
+│       │   └── menu.js
+│       └── scss
+│           ├── core.scss
+│           ├── pages
+│           │   ├── page-account-settings.scss
+│           │   ├── page-auth.scss
+│           │   ├── page-icons.scss
+│           │   └── page-misc.scss
+│           ├── theme-default.scss
+│           ├── _bootstrap-extended
+│           │   ├── forms
+│           │   │   ├── _floating-labels.scss
+│           │   │   ├── _form-control.scss
+│           │   │   ├── _form-range.scss
+│           │   │   ├── _form-select.scss
+│           │   │   ├── _input-group.scss
+│           │   │   ├── _labels.scss
+│           │   │   └── _validation.scss
+│           │   ├── mixins
+│           │   │   ├── _alert.scss
+│           │   │   ├── _badge.scss
+│           │   │   ├── _buttons.scss
+│           │   │   ├── _caret.scss
+│           │   │   ├── _dropdown.scss
+│           │   │   ├── _forms.scss
+│           │   │   ├── _list-group.scss
+│           │   │   ├── _misc.scss
+│           │   │   ├── _navs.scss
+│           │   │   ├── _pagination.scss
+│           │   │   ├── _progress.scss
+│           │   │   ├── _table-variants.scss
+│           │   │   └── _toasts.scss
+│           │   ├── _accordion.scss
+│           │   ├── _alert.scss
+│           │   ├── _badge.scss
+│           │   ├── _breadcrumb.scss
+│           │   ├── _button-group.scss
+│           │   ├── _buttons.scss
+│           │   ├── _card.scss
+│           │   ├── _carousel.scss
+│           │   ├── _close.scss
+│           │   ├── _dropdown.scss
+│           │   ├── _forms.scss
+│           │   ├── _functions.scss
+│           │   ├── _include.scss
+│           │   ├── _list-group.scss
+│           │   ├── _mixins.scss
+│           │   ├── _modal.scss
+│           │   ├── _nav.scss
+│           │   ├── _navbar.scss
+│           │   ├── _offcanvas.scss
+│           │   ├── _pagination.scss
+│           │   ├── _popover.scss
+│           │   ├── _progress.scss
+│           │   ├── _reboot.scss
+│           │   ├── _root.scss
+│           │   ├── _spinners.scss
+│           │   ├── _tables.scss
+│           │   ├── _toasts.scss
+│           │   ├── _tooltip.scss
+│           │   ├── _type.scss
+│           │   ├── _utilities-ltr.scss
+│           │   ├── _utilities.scss
+│           │   └── _variables.scss
+│           ├── _bootstrap-extended.scss
+│           ├── _bootstrap.scss
+│           ├── _colors.scss
+│           ├── _components
+│           │   ├── mixins
+│           │   │   ├── _app-brand.scss
+│           │   │   ├── _avatar.scss
+│           │   │   ├── _footer.scss
+│           │   │   ├── _menu.scss
+│           │   │   ├── _misc.scss
+│           │   │   ├── _navbar.scss
+│           │   │   └── _text-divider.scss
+│           │   ├── _app-brand.scss
+│           │   ├── _avatar.scss
+│           │   ├── _base.scss
+│           │   ├── _common.scss
+│           │   ├── _footer.scss
+│           │   ├── _include.scss
+│           │   ├── _layout.scss
+│           │   ├── _menu.scss
+│           │   ├── _mixins.scss
+│           │   ├── _text-divider.scss
+│           │   └── _variables.scss
+│           ├── _components.scss
+│           ├── _custom-variables
+│           │   ├── _bootstrap-extended.scss
+│           │   ├── _components.scss
+│           │   ├── _libs.scss
+│           │   ├── _pages.scss
+│           │   └── _support.scss
+│           └── _theme
+│               ├── _common.scss
+│               └── _theme.scss
+├── templates
+│   ├── admin_panel
+│   │   ├── customer_list.html
+│   │   ├── dashboard.html
+│   │   ├── login.html
+│   │   ├── order_detail.html
+│   │   ├── order_list.html
+│   │   ├── order_map.html
+│   │   ├── products.html
+│   │   ├── product_confirm_delete.html
+│   │   ├── product_form.html
+│   │   ├── product_list.html
+│   │   ├── reports.html
+│   │   ├── service_request_confirm_delete.html
+│   │   ├── service_request_detail.html
+│   │   ├── service_request_form.html
+│   │   └── service_request_list.html
+│   └── admin_theme
+│       ├── components
+│       ├── layouts
+│       │   └── base.html
+│       └── partials
+│           ├── footer.html
+│           ├── navbar.html
+│           └── sidebar.html
+├── templatetags
+│   ├── admin_theme_tags.py
+│   └── __pycache__
+│       └── admin_theme_tags.cpython-312.pyc
+├── tests.py
+├── views.py
+├── __init__.py
+└── __pycache__
+    ├── admin.cpython-312.pyc
+    ├── apps.cpython-312.pyc
+    ├── models.cpython-312.pyc
+    └── __init__.cpython-312.pyc
+

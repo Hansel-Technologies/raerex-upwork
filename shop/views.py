@@ -22,10 +22,36 @@ def product_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
     
+    # Banner context
+    banner_context = {
+        'banner_images': [
+            'images/shop/shop-banner-bg.png',
+            'images/shop/home-banner.png',
+        ],
+        'banner_slides': [
+            {
+                'title': 'Special Offer for this season',
+                'subtitle': 'Built in Shop Features',
+                'description': '25% Discount for all items',
+                'button_text': 'Order Now',
+                'button_url': '#',  # Replace with actual URL
+            },
+            {
+                'title': 'Ready Shop Included',
+                'subtitle': 'Special Offer',
+                'description': '25% Discount for all items',
+                'button_text': 'Order Now',
+                'button_url': '#',  # Replace with actual URL
+            },
+            # Add more slides as needed
+        ]
+    }
+    
     context = {
         'category': category,
         'categories': categories,
-        'products': products
+        'products': products,
+        'banner': banner_context,  # Add banner context to the main context
     }
     return render(request, 'shop/product/list.html', context)
 
@@ -101,7 +127,7 @@ def cart_remove(request, product_id):
 
 
 def cart_detail(request):
-    cart = Cart(request)  # This should now work correctly
+    cart = Cart(request)  
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={
             'quantity': item['quantity'],
@@ -164,3 +190,8 @@ def compare_products(request):
         'products': products,
         'comparison_data': comparison_data
     })
+
+def get_products_by_category(request):
+    category_id = request.GET.get('category_id')
+    products = Product.objects.filter(category_id=category_id, available=True)
+    return render(request, 'shop/product_options.html', {'products': products})

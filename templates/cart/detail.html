@@ -5,26 +5,24 @@
 
 {% block content %}
 <!-- Start main-content -->
-<div class="main-content-area">
-  <!-- Section: page title -->
-  <section class="page-title layer-overlay overlay-dark-3 section-typo-light bg-img-center" data-tm-bg-img="{% static 'images/bg/bg1.jpg' %}">
-    <div class="container pt-50 pb-50">
-      <div class="section-content">
-        <div class="row">
-          <div class="col-md-12 text-center">
-            <h2 class="title">Shopping Cart</h2>
-            <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
-              <div class="breadcrumbs">
-                <span><a href="{% url 'shop:product_list' %}" rel="home">Home</a></span>
-                <span><i class="fa fa-angle-right"></i></span>
-                <span class="active">Shopping Cart</span>
-              </div>
-            </nav>
-          </div>
+<section class="page-title section-typo-light" style="background-color: #4c9a2a;">
+  <div class="container pt-50 pb-50">
+    <div class="section-content">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <h2 class="title">Shopping Cart</h2>
+          <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
+            <div class="breadcrumbs">
+              <span><a href="{% url 'shop:product_list' %}" rel="home">Home</a></span>
+              <span><i class="fa fa-angle-right"></i></span>
+              <span class="active">Shopping Cart</span>
+            </div>
+          </nav>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <section>
     <div class="container">
@@ -34,28 +32,29 @@
             <form method="post" action="{% url 'cart:cart_update' %}">
               {% csrf_token %}
               <div class="table-responsive">
-                <table class="table table-striped table-bordered tbl-shopping-cart">
+                <table class="table">
                   <thead>
                     <tr>
-                      <th></th>
                       <th>Photo</th>
                       <th>Product Name</th>
                       <th>Price</th>
                       <th>Quantity</th>
                       <th>Total</th>
+                      <th>Remove</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for item in cart %}
                       {% with product=item.product %}
                         <tr class="cart_item">
-                          <td class="product-remove">
-                            <a title="Remove this item" class="remove" href="{% url 'cart:cart_remove' product.id %}">×</a>
-                          </td>
                           <td class="product-thumbnail">
-                            <a href="{{ product.get_absolute_url }}">
-                              <img alt="{{ product.name }}" src="{{ product.image.url }}" style="width: 100px; height: auto;">
-                            </a>
+                            {% if product.image %}
+                              <a href="{{ product.get_absolute_url }}">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 100px; height: auto;">
+                              </a>
+                            {% else %}
+                              <span>No image available</span>
+                            {% endif %}
                           </td>
                           <td class="product-name">
                             <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
@@ -65,29 +64,30 @@
                           </td>
                           <td class="product-quantity">
                             <div class="quantity buttons_added">
-                              <input type="button" class="minus" value="-">
-                              <input type="number" name="quantity_{{ product.id }}" value="{{ item.quantity }}" title="Qty" class="input-text qty text" size="4" min="1" step="1">
-                              <input type="button" class="plus" value="+">
+                              <input type="number" size="4" class="input-text qty text" title="Qty" value="{{ item.quantity }}" min="0" step="1">
                             </div>
                           </td>
                           <td class="product-subtotal">
                             <span class="amount">KES {{ item.total_price|floatformat:2|intcomma }}</span>
                           </td>
+                          <td class="product-remove">
+                            {% if product.id %}
+                              <a href="{% url 'cart:cart_remove' product.id %}" class="remove" title="Remove this item">×</a>
+                            {% else %}
+                              <span>Cannot remove</span>
+                            {% endif %}
+                          </td>
                         </tr>
                       {% endwith %}
+                    {% empty %}
+                      <tr>
+                        <td colspan="6">Your cart is empty.</td>
+                      </tr>
                     {% endfor %}
-                    <tr>
-                      <td colspan="6">
-                        <div class="coupon">
-                          <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="Coupon code">
-                          <input type="submit" class="button" name="apply_coupon" value="Apply Coupon">
-                        </div>
-                        <input type="submit" class="button update-cart-button" name="update_cart" value="Update Cart">
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
+              
             </form>
           </div>
           <div class="col-md-12 mt-30">

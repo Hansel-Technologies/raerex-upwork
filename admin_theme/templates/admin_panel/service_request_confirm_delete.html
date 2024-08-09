@@ -1,0 +1,28 @@
+{% extends 'admin_theme/layouts/base.html' %}
+{% load static %}
+
+{% block title %}Delete Service Request - Raerex Admin{% endblock %}
+
+{% block content %}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">Admin / Service Requests /</span> Delete Request
+    </h4>
+
+    <div class="card">
+        <h5 class="card-header">Confirm Deletion</h5>
+        <div class="card-body">
+            <p>Are you sure you want to delete the service request for {{ service_request.name }}?</p>
+            <p>This action cannot be undone.</p>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    <a href="{% url 'admin_panel:service_request_list' %}" class="btn btn-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

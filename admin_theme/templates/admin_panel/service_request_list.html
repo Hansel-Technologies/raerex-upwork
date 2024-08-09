@@ -1,0 +1,79 @@
+{% extends 'admin_theme/layouts/base.html' %}
+{% load static %}
+{% block title %}Service Requests - Raerex Admin{% endblock %}
+{% block content %}
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin /</span> Service Requests</h4>
+
+    <div class="card">
+        <h5 class="card-header">Service Request List</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for request in service_requests %}
+                    <tr>
+                        <td><strong>#{{ request.id }}</strong></td>
+                        <td>{{ request.name }}</td>
+                        <td>{{ request.email }}</td>
+                        <td>{{ request.location }}</td>
+                        <td><span class="badge bg-label-{{ request.status }}">{{ request.get_status_display }}</span></td>
+                        <td>{{ request.created_at|date:"M d, Y H:i" }}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{% url 'admin_panel:service_request_detail' request.id %}">
+                                        <i class="bx bx-show-alt me-1"></i> View
+                                    </a>
+                                    <a class="dropdown-item" href="{% url 'admin_panel:service_request_update' request.id %}">
+                                        <i class="bx bx-edit-alt me-1"></i> Edit
+                                    </a>
+                                    {% if request.user.is_superadmin %}
+                                    <a class="dropdown-item" href="{% url 'admin_panel:service_request_delete' request.id %}">
+                                        <i class="bx bx-trash me-1"></i> Delete
+                                    </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center">No service requests found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {% if is_paginated %}
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            <li class="page-item disabled"><a class="page-link" href="#">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -2,110 +2,331 @@
 {% load static %}
 {% load humanize %}
 
-{% block title %}
-    {% if category %}{{ category.name }}{% else %}RAEREX Ecommerce{% endif %}
-{% endblock %}
-
 {% block content %}
 <div class="main-content-area">
-    <!-- Section: page title -->
-    <section class="page-title layer-overlay overlay-dark-3 section-typo-light bg-img-center" data-tm-bg-img="{% static 'images/bg/hvac-banner.jpg' %}">
-      <div class="container pt-50 pb-50">
-        <div class="section-content">
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <h2 class="title">{% if category %}{{ category.name }}{% else %}HVAC Products{% endif %}</h2>
-              <nav class="breadcrumbs" role="navigation" aria-label="Breadcrumbs">
-                <div class="breadcrumbs">
-                  <span><a href="{% url 'shop:product_list' %}" rel="home">Home</a></span>
-                  <span><i class="fa fa-angle-right"></i></span>
-                  <span class="active">{% if category %}{{ category.name }}{% else %}HVAC Products{% endif %}</span>
-                </div>
-              </nav>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  
-    <section class="">
-      <div class="container">
-        <div class="section-content">
-          <div class="row">
-            <div class="col-md-12">
-              <!-- Isotope Filter -->
-              <div class="isotope-layout-filter filter-style-4 text-left cat-filter-default text-center mb-50" data-link-with="gallery-holder-618422">
-                <a href="{% url 'shop:product_list' %}" class="{% if not category %}active{% endif %}" data-filter="*">ALL</a>
-                {% for c in categories %}
-                  <a href="{{ c.get_absolute_url }}" class="{% if category.slug == c.slug %}active{% endif %}" data-filter=".{{ c.slug }}">{{ c.name|upper }}</a>
-                {% endfor %}
-              </div>
-              <!-- End Isotope Filter -->
-
-              <!-- Isotope Gallery Grid -->
-              <div id="gallery-holder-618422" class="isotope-layout grid-3 gutter-15 clearfix lightgallery-lightbox">
-                <div class="isotope-layout-inner">
-                  {% for product in products %}
-                  <!-- HVAC Product Item Start -->
-                  <div class="isotope-item {{ product.category.slug }}">
-                    <div class="isotope-item-inner">
-                      <div class="product">
-                        <div class="product-header">
-                          {% if product.price < product.price|floatformat:"0" %}
-                            <span class="onsale">Sale!</span>
-                          {% endif %}
-                          <div class="thumb image-swap">
-                            <a href="{{ product.get_absolute_url }}">
-                              <img src="{{ product.get_image_url }}" class="product-main-image img-responsive img-fullwidth" width="300" height="300" alt="{{ product.name }}">
-                            </a>
-                          </div>
-                        </div>
-                        <div class="product-details">
-                          <span class="product-categories"><a href="{{ product.category.get_absolute_url }}" rel="tag">{{ product.category.name }}</a></span>
-                          <h5 class="product-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
-                          <span class="price">
-                            {% if product.price < product.price|floatformat:"0" %}
-                              <del><span class="amount"><span class="currency-symbol">KES </span>{{ product.price|floatformat:2|intcomma }}</span></del>
-                            {% endif %}
-                            <ins><span class="amount"><span class="currency-symbol">KES </span>{{ product.price|floatformat:2|intcomma }}</span></ins>
-                          </span>
-                          <div class="product-actions">
-                            <button class="btn btn-sm btn-info" onclick="addToCompare({{ product.id }}, '{{ product.name }}')">
-                              <i class="fas fa-exchange-alt"></i> Compare
-                            </button>
-                            <form action="{% url 'cart:cart_add' product.id %}" method="post" style="display: inline;">
-                              {% csrf_token %}
-                              <input type="hidden" name="quantity" value="1">
-                              <input type="hidden" name="update" value="False">
-                              <button type="submit" class="btn btn-sm btn-success">
-                                <i class="fas fa-shopping-cart"></i> Add to Cart
-                              </button>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
+    <div id="home" class="section">
+        <style>
+            /* Custom styles for carousel */
+            .custom-carousel .carousel-control-prev,
+            .custom-carousel .carousel-control-next {
+              width: 50px;
+              height: 50px;
+              background-color: rgba(0, 0, 0, 0.5);
+              border-radius: 50%;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+          
+            .custom-carousel .carousel-control-prev {
+              left: 20px;
+            }
+          
+            .custom-carousel .carousel-control-next {
+              right: 20px;
+            }
+          
+            .custom-carousel .carousel-control-prev-icon,
+            .custom-carousel .carousel-control-next-icon {
+              width: 30px;
+              height: 30px;
+            }
+          
+            .custom-carousel .carousel-indicators {
+              bottom: 20px;
+            }
+          
+            .custom-carousel .carousel-indicators [data-bs-target] {
+              width: 12px;
+              height: 12px;
+              border-radius: 50%;
+              background-color: #fff;
+              opacity: 0.5;
+              transition: opacity 0.3s ease;
+            }
+          
+            .custom-carousel .carousel-indicators .active {
+              opacity: 1;
+            }
+          
+            .custom-carousel .carousel-control-prev:hover,
+            .custom-carousel .carousel-control-next:hover {
+              background-color: rgba(0, 0, 0, 0.8);
+            }
+          </style>
+          
+          <div class="container-fluid p-0">
+            <div class="row">
+              <div class="col">
+                <div id="homeCarousel" class="carousel slide custom-carousel" data-bs-ride="carousel">
+                  <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                  </div>
+                  <div class="carousel-inner">
+                    <div class="carousel-item active">
+                      <img src="{% static 'images/banner1.png' %}" class="d-block w-100" alt="Shop Banner">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{% static 'images/banner2.png' %}" class="d-block w-100" alt="Shop Banner">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="{% static 'images/banner3.png' %}" class="d-block w-100" alt="Shop Banner">
                     </div>
                   </div>
-                  <!-- HVAC Product Item End -->
-                  {% empty %}
-                  <p>No products found.</p>
-                  {% endfor %}
+                  <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
                 </div>
               </div>
-              <!-- End Isotope Gallery Grid -->
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
+          </div>  
+   
 
-  <!-- Floating Compare Button -->
-  <div id="floating-compare-button" style="display: none;">
-    <button id="compare-button" onclick="goToComparePage()">
-      <i class="fas fa-exchange-alt"></i>
-      <span id="compare-count">0</span>
-    </button>
-    <button id="clear-compare-button" onclick="clearComparison()">Clear Comparison</button>
-  </div>
+    <!-- Features Section -->
+    <section class="section" style="background-color: #fff;">
+        <div class="container pt-30 pb-30">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <div class="tm-sc-icon-box icon-box icon-left iconbox-centered-in-responsive mb-lg-30">
+                        <div class="icon-box-wrapper">
+                            <div class="icon">
+                                <img src="{% static 'images/shop/air-conditioner.png' %}" alt="Quality Products">
+                            </div>
+                            <div class="icon-text">
+                                <h5 class="icon-box-title mt-0">Quality Products</h5>
+                                <div class="content">Warranty Guaranteed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="tm-sc-icon-box icon-box icon-left iconbox-centered-in-responsive mb-lg-30">
+                        <div class="icon-box-wrapper">
+                            <div class="icon">
+                                <img src="{% static 'images/shop/call.png' %}" alt="Support 24/7">
+                            </div>
+                            <div class="icon-text">
+                                <h5 class="icon-box-title mt-0">Support 24/7</h5>
+                                <div class="content">Call +254 780 204 738</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="tm-sc-icon-box icon-box icon-left iconbox-centered-in-responsive mb-lg-30">
+                        <div class="icon-box-wrapper">
+                            <div class="icon">
+                                <img src="{% static 'images/shop/15.png' %}" alt="15 Days Returns">
+                            </div>
+                            <div class="icon-text">
+                                <h5 class="icon-box-title mt-0">15 Days Returns</h5>
+                                <div class="content">Buyer Protection</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="tm-sc-icon-box icon-box icon-left iconbox-centered-in-responsive mb-lg-30">
+                        <div class="icon-box-wrapper">
+                            <div class="icon">
+                                <img src="{% static 'images/shop/secure.png' %}" alt="Secure Checkout">
+                            </div>
+                            <div class="icon-text">
+                                <h5 class="icon-box-title mt-0">Secure Checkout</h5>
+                                <div class="content">Fastest Payment</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section products-section py-5">
+        <div class="container">
+            <div class="section-title text-center mb-30">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2><span class="text-theme-colored1">New Arrivals</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="isotope-layout-filter filter-style-8 text-left cat-filter-default text-center" data-link-with="product-gallery-holder-1111">
+                        <a href="#" class="active" data-filter="*">All</a>
+                        {% for c in categories %}
+                            <a href="#" data-filter=".{{ c.slug }}">{{ c.name|upper }}</a>
+                        {% endfor %}
+                    </div>
+
+                    <div id="product-gallery-holder-1111" class="isotope-layout grid-4 gutter-15 clearfix">
+                        <div class="isotope-layout-inner">
+                            {% for product in products %}
+                                <div class="isotope-item {{ product.category.slug }}">
+                                    <div class="isotope-item-inner">
+                                        <div class="product">
+                                            <div class="product-header">
+                                                {% if product.discount %}
+                                                    <span class="onsale">Sale!</span>
+                                                {% endif %}
+                                                <div class="thumb image-swap">
+                                                    <a href="{{ product.get_absolute_url }}">
+                                                        <img src="{{ product.get_image_url }}" class="product-main-image img-responsive img-fullwidth" alt="{{ product.name }}">
+                                                        <img src="{{ product.get_image_url }}" class="product-hover-image img-responsive img-fullwidth" alt="{{ product.name }}">
+                                                    </a>
+                                                </div>
+                                                <div class="product-button-holder">
+                                                    <a href="#" class="button btn-quickview" title="Quick View">Quick View</a>
+                                                    <button type="button" class="button tm-btn-add-to-cart">Add to Cart</button>
+                                                </div>
+                                            </div>
+                                            <div class="product-details">
+                                                <span class="product-categories"><a href="{{ product.category.get_absolute_url }}" rel="tag">{{ product.category.name }}</a></span>
+                                                <h5 class="product-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
+                                                <span class="price">
+                                                  {% if product.price < product.price|floatformat:"0" %}
+                                                    <del><span class="amount"><span class="currency-symbol">KES </span>{{ product.price|floatformat:2|intcomma }}</span></del>
+                                                  {% endif %}
+                                                  <ins><span class="amount"><span class="currency-symbol">KES </span>{{ product.price|floatformat:2|intcomma }}</span></ins>
+                                                </span>
+                                                <div class="product-actions">
+
+                                                  <form action="{% url 'cart:cart_add' product.id %}" method="post" style="display: inline;">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="quantity" value="1">
+                                                    <input type="hidden" name="update" value="False">
+                                                    <button type="submit" class="btn btn-sm btn-success">
+                                                      <i class="fas fa-shopping-cart"></i> Add to Cart
+                                                    </button>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <!-- HVAC Product Item End -->
+                                        {% empty %}
+                                        <p>No products found.</p>
+                                        {% endfor %}
+                                      </div>
+                                    </div>
+                                    <!-- End HVAC Products Grid -->
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </section>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    // Slider functionality
+    $(document).ready(function() {
+        if ($('.rev_slider').length) {
+            $('.rev_slider').revolution({
+                sliderType:"standard",
+                sliderLayout:"auto",
+                dottedOverlay:"none",
+                delay:9000,
+                navigation: {
+                    keyboardNavigation:"off",
+                    keyboard_direction: "horizontal",
+                    mouseScrollNavigation:"off",
+                    mouseScrollReverse:"default",
+                    onHoverStop:"on",
+                    touch:{
+                        touchenabled:"on",
+                        swipe_threshold: 75,
+                        swipe_min_touches: 1,
+                        swipe_direction: "horizontal",
+                        drag_block_vertical: false
+                    },
+                    arrows: {
+                        style:"zeus",
+                        enable:true,
+                        hide_onmobile:true,
+                        hide_under:600,
+                        hide_onleave:true,
+                        hide_delay:200,
+                        hide_delay_mobile:1200,
+                        tmp:'<div class="tp-title-wrap">    <div class="tp-arr-imgholder"></div> </div>',
+                        left: {
+                            h_align:"left",
+                            v_align:"center",
+                            h_offset:30,
+                            v_offset:0
+                        },
+                        right: {
+                            h_align:"right",
+                            v_align:"center",
+                            h_offset:30,
+                            v_offset:0
+                        }
+                    },
+                    bullets: {
+                        enable:true,
+                        hide_onmobile:true,
+                        hide_under:600,
+                        style:"metis",
+                        hide_onleave:true,
+                        hide_delay:200,
+                        hide_delay_mobile:1200,
+                        direction:"horizontal",
+                        h_align:"center",
+                        v_align:"bottom",
+                        h_offset:0,
+                        v_offset:30,
+                        space:5,
+                        tmp:'<span class="tp-bullet-img-wrap">  <span class="tp-bullet-image"></span></span><span class="tp-bullet-title">{{title}}</span>'
+                    }
+                },
+                viewPort: {
+                    enable:true,
+                    outof:"pause",
+                    visible_area:"80%",
+                    presize:false
+                },
+                responsiveLevels:[1240,1024,778,480],
+                visibilityLevels:[1240,1024,778,480],
+                gridwidth:[1240,1024,778,480],
+                gridheight:[600,600,500,400],
+                lazyType:"none",
+                parallax: {
+                    type:"mouse",
+                    origo:"slidercenter",
+                    speed:2000,
+                    levels:[2,3,4,5,6,7,12,16,10,50,46,47,48,49,50,55],
+                    type:"mouse",
+                },
+                shadow:0,
+                spinner:"off",
+                stopLoop:"off",
+                stopAfterLoops:-1,
+                stopAtSlide:-1,
+                shuffle:"off",
+                autoHeight:"off",
+                hideThumbsOnMobile:"off",
+                hideSliderAtLimit:0,
+                hideCaptionAtLimit:0,
+                hideAllCaptionAtLilmit:0,
+                debugMode:false,
+                fallbacks: {
+                    simplifyAll:"off",
+                    nextSlideOnWindowFocus:"off",
+                    disableFocusListener:false,
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

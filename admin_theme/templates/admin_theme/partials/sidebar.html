@@ -1,0 +1,111 @@
+{% load static %}
+
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+  <div class="app-brand demo">
+    <a href="{% url 'admin_panel:dashboard' %}" class="app-brand-link">
+      <span class="app-brand-logo demo">
+        <img src="{% static 'images/new2.svg' %}" width="200px" alt="Raerex Logo">
+      </span>
+    </a>
+    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+      <i class="bx bx-chevron-left bx-sm align-middle"></i>
+    </a>
+  </div>
+
+  <div class="menu-inner-shadow"></div>
+
+  <ul class="menu-inner py-1">
+    <li class="menu-item">
+      <a href="{% url 'admin_panel:dashboard' %}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <div data-i18n="Analytics">Dashboard</div>
+      </a>
+    </li>
+    <li class="menu-item">
+      <a href="{% url 'admin_panel:category_create' %}" class="menu-link">
+          <div data-i18n="Add Category">Add Category</div>
+      </a>
+  </li>
+
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-package"></i>
+        <div data-i18n="Products">Products</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="{% url 'admin_panel:product_list' %}" class="menu-link">
+            <div data-i18n="Product List">Product List</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{% url 'admin_panel:product_create' %}" class="menu-link">
+            <div data-i18n="Add Product">Add Product</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu-item">
+      <a href="{% url 'admin_panel:order_list' %}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-cart"></i>
+        <div data-i18n="Orders">Orders</div>
+      </a>
+    </li>
+
+    <li class="menu-item">
+      <a href="{% url 'admin_panel:service_request_list' %}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-wrench"></i>
+        <div data-i18n="Service Requests">Service Requests</div>
+      </a>
+    </li>
+
+    <li class="menu-item">
+      <a href="{% url 'admin_panel:customer_list' %}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-user"></i>
+        <div data-i18n="Customers">Customers</div>
+      </a>
+    </li>
+
+    <li class="menu-item">
+      <a href="{% url 'admin_panel:reports' %}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-line-chart"></i>
+        <div data-i18n="Reports">Reports</div>
+      </a>
+    </li>
+
+    <li class="menu-item">
+      <a href="{% url 'admin_panel:order_map' %}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-map"></i>
+        <div data-i18n="Order Map">Order Map</div>
+      </a>
+    </li>
+
+    <!-- New Chat Management Menu Item -->
+    <li class="menu-item">
+      <a href="{% url 'admin_panel:admin_chat_list' %}" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-message-square-dots"></i>
+        <div data-i18n="Chat Management">Chat Management</div>
+      </a>
+    </li>
+
+    <li class="menu-item">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-cog"></i>
+        <div data-i18n="Settings">Settings</div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item">
+          <a href="{% url 'admin_panel:user_management' %}" class="menu-link">
+            <div data-i18n="User Management">User Management</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="#" class="menu-link">
+            <div data-i18n="General Settings">General Settings</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</aside>

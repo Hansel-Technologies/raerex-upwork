@@ -1,3 +1,4 @@
+#orders/views.py
 from django.shortcuts import render, redirect
 from .forms import OrderCreateForm
 from cart.cart import Cart
@@ -6,12 +7,19 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
 
+from django.shortcuts import render, redirect
+from .forms import OrderCreateForm
+from cart.cart import Cart
+from .models import OrderItem
+
 def order_create(request):
     cart = Cart(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
-            order = form.save()
+            order = form.save(commit=False)
+            order.payment_method = request.POST.get('payment_method')  
+            order.save()
             for item in cart:
                 OrderItem.objects.create(
                     order=order,
