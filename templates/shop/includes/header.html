@@ -1,240 +1,390 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Service Menu Hint</title>
-  <link rel="stylesheet" href="{% static 'path/to/your/css/file.css' %}">
+  <title>RAEREX Header</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
   <style>
-    .search-form-wrapper {
+    .header-wrapper {
       position: relative;
-      display: inline-block;
-    }
-    .search-form {
-      position: absolute;
-      top: 100%;
-      right: 0;
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      z-index: 1000;
-    }
-    .search-input {
-      border: 1px solid #ddd;
-      padding: 5px 10px;
-      width: 200px;
-    }
-    .search-button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-    .hint-container {
-      position: absolute;
-      top: 50px; /* Adjust based on your layout */
-      right: 200px; /* Adjust based on your layout */
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      padding: 10px;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      animation: shimmer 2s infinite;
-    }
-    .hint-arrow {
-      width: 0; 
-      height: 0; 
-      border-left: 10px solid transparent;
-      border-right: 10px solid transparent;
-      border-bottom: 10px solid #fff;
-      position: absolute;
-      top: -10px; /* Adjust based on your layout */
-      left: 20px; /* Adjust based on your layout */
-    }
-    .hint-message {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    #optOutButton {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    @keyframes shimmer {
-      0% {
-        box-shadow: 0 0 5px rgba(255,255,255,0.5);
-      }
-      50% {
-        box-shadow: 0 0 15px rgba(255,255,255,1);
-      }
-      100% {
-        box-shadow: 0 0 5px rgba(255,255,255,0.5);
-      }
-    }
-    .header-nav .menuzord-menu > li > a {
-      color: #4c9a2a !important;
-    }
-    .header-nav .menuzord-menu > li:hover > a {
-      color: #ffffff !important;
-      background-color: #4c9a2a !important;
-    }
-    .header-nav .menuzord-menu ul.dropdown li a {
-      color: #4c9a2a !important;
-    }
-    .header-nav .menuzord-menu ul.dropdown li:hover > a {
-      background-color: #4c9a2a !important;
-      color: #ffffff !important;
+      overflow: hidden;
     }
 
-    /* New CSS for header background */
-    .header-background {
-      position: relative;
+    .top-wave-banner {
       width: 100%;
-      height: 50px; /* Shorter height */
-      background-image: url("{% static 'assets/img/backgrounds/wavy.png' %}");
+      height: 50px;
+      background-image: url('{% static "images/top-wave-banner.png" %}');
       background-size: cover;
       background-position: center;
     }
-  </style>
-</head>
-<body>
-  <div class="header-background"></div>
-  <header id="header" class="header header-layout-type-header-2rows">
-    <div class="header-top">
-      <div class="container">
-        <div class="row">
-          <div class="col-xl-auto header-top-left align-self-center text-center text-xl-start">
-            <ul class="element contact-info">
-              <li class="contact-phone"><i class="fa fa-phone font-icon sm-display-block"></i> Tel: +254 722 388 398</li>
-              <li class="contact-email"><i class="fa fa-envelope font-icon sm-display-block"></i> info@raerex.co.ke</li>
-              <li class="contact-address"><i class="fa fa-map font-icon sm-display-block"></i> Bandari Road, Industrial Area, <br> Real Park Towers, Nairobi, Kenya</li>
-            </ul>
-          </div>
-          <div class="col-xl-auto ms-xl-auto header-top-right align-self-center text-center text-xl-end">
-            <div class="element pt-0 pb-0">
-              <ul class="styled-icons icon-dark icon-theme-colored1 icon-circled clearfix">
-                <li><a class="social-link" href="#"><i class="fab fa-facebook"></i></a></li>
-                <li><a class="social-link" href="#"><i class="fab fa-twitter"></i></a></li>
-                <li><a class="social-link" href="#"><i class="fab fa-youtube"></i></a></li>
-                <li><a class="social-link" href="#"><i class="fab fa-instagram"></i></a></li>
-              </ul>
-            </div>
-            <div class="element pt-0 pt-lg-10 pb-0">
-              <a href="#" class="btn btn-theme-colored2 btn-sm ajaxload-popup">Go To Raerex Website</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="header-nav tm-enable-navbar-hide-on-scroll">
-      <div class="header-nav-wrapper navbar-scrolltofixed">
-        <div class="menuzord-container header-nav-container">          
-          <div class="container position-relative">
-                       
-            <div class="row header-nav-col-row align-items-center">              
-              <div class="col-sm-auto">                
-                <a class="menuzord-brand site-brand" href="{% url 'shop:product_list' %}">
-                  <img class="logo-default logo-1x" src="{% static 'images/new2.svg' %}" alt="Logo">
-                  <img class="logo-default logo-2x retina" src="{% static 'images/new2.svg' %}" alt="Logo">
-                </a>
-              </div>
-              <div class="col-sm-auto ms-auto pr-0">
-                <nav id="top-primary-nav" class="menuzord theme-color2" data-effect="fade" data-animation="none" data-align="right">
-                  <ul id="main-nav" class="menuzord-menu">
-                    <li class="active menu-item"><a href="{% url 'shop:product_list' %}">Home</a></li>
-                    <li class="menu-item" style="position: relative;"><a href="#">Service</a>
-                      <ul class="dropdown">
-                        <li><a href="{% url 'service:service_request' %}">Request Service</a></li>
-                        <li><a href="{% url 'service:equipment_list' %}">Equipment List</a></li>
-                        <li><a href="{% url 'service:service_history' %}">Service History</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-              <div class="col-sm-auto">
-                <ul class="list-inline nav-side-icon-list">
-                  <li class="hidden-mobile-mode">
-                    <div class="search-form-wrapper">
-                      <a href="#" id="top-nav-search-btn"><i class="search-icon fa fa-search"></i></a>
-                      <form action="{% url 'shop:product_search' %}" method="get" class="search-form" style="display: none;">
-                        <input type="text" name="query" placeholder="Search products..." class="search-input">
-                        <button type="submit" class="search-button"><i class="fa fa-search"></i></button>
-                      </form>
-                    </div>
-                  </li>
-                  <li class="hidden-mobile-mode">
-                    <div class="top-nav-mini-cart-icon-container">
-                      <a class="mini-cart-icon" href="{% url 'shop:cart_detail' %}" title="View your shopping cart">
-                        <img src="{% static 'images/shopping-cart.png' %}" width="25" alt="cart">
-                        <span class="items-count">{{ cart.get_total_items }}</span>
-                        <span class="cart-quick-info">{{ cart.get_total_items }} item(s) - 
-                          <span class="amount">
-                            <span class="currencySymbol">KES </span>{{ cart.get_total_price }}
-                          </span>
-                        </span>
-                      </a>
-                    </div>
-                  </li>
-                  <li class="hidden-mobile-mode">
-                    <div id="side-panel-trigger" class="side-panel-trigger">
-                      <a href="#">
-                        <div class="hamburger-box">
-                          <div class="hamburger-inner"></div>
-                        </div>
-                      </a>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-  </header>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const searchBtn = document.getElementById('top-nav-search-btn');
-      const searchForm = document.querySelector('.search-form');
+    .contact-bar {
+      background-color: #4c9a2a;
+      color: white;
+      padding: 10px 0;
+      font-size: 14px;
+    }
 
-      searchBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        searchForm.style.display = searchForm.style.display === 'none' ? 'block' : 'none';
-      });
+    .contact-bar .social-icon {
+      color: white;
+      margin-right: 10px;
+    }
 
-      // Close search form when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!searchForm.contains(e.target) && e.target !== searchBtn) {
-          searchForm.style.display = 'none';
-        }
-      });
+    .logo-section {
+      position: relative;
+      background-color: white;
+      padding: 10px 0;
+    }
 
-      const optOutButton = document.getElementById('optOutButton');
-      const serviceHint = document.getElementById('serviceHint');
+    .wave-background {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 70%;
+      height: 100%;
+      background-image: url('{% static "images/wave-background-lg.png" %}');
+      background-size: cover;
+      background-position: left center;
+      z-index: 1;
+    }
 
-      // Check if user has opted out
-      if (localStorage.getItem('optOutHint')) {
-        serviceHint.style.display = 'none';
+    .logo-container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .menu-container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .navbar-nav .nav-link {
+      color: #4c9a2a !important;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-item.show .nav-link {
+      color: white !important;
+      background-color: #4c9a2a;
+    }
+
+    .dropdown-menu {
+      border: none;
+      background-color: #f8f9fa;
+    }
+
+    .dropdown-item:hover {
+      background-color: #4c9a2a;
+      color: white;
+    }
+
+    .btn-raerex {
+      background-color: #4c9a2a;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      font-size: 14px;
+    }
+
+    .btn-raerex:hover {
+      background-color: #3a7820;
+      color: white;
+    }
+
+    .full-width-bg-container {
+      position: relative;
+      width: 100%;
+      background-image: url('{% static "images/header-bg-xs.png" %}');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 20px 0;
+      filter: none!important;
+      transform: none!important;
+    }
+
+    .full-width-bg-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.1);
+      z-index: 1;
+    }
+
+    .full-width-bg-container .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .navbar-brand,
+    .navbar-nav {
+      position: relative;
+      z-index: 3;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 575.98px) {
+      .top-wave-banner {
+        background-image: url('{% static "images/top-wave-banner-xs.png" %}');
       }
 
-      optOutButton.addEventListener('click', function() {
-        serviceHint.style.display = 'none';
-        localStorage.setItem('optOutHint', 'true');
-      });
+      .contact-bar {
+        font-size: 12px;
+      }
+
+      .contact-bar .btn-raerex {
+        display: block;
+        margin-top: 5px;
+        font-size: 12px;
+      }
+
+      .logo-container {
+        text-align: center;
+      }
+
+      .logo-container img {
+        max-width: 80%;
+      }
+
+      .full-width-bg-container {
+        padding: 10px 0;
+      }
+    }
+
+    @media (min-width: 576px) {
+      .top-wave-banner {
+        background-image: url('{% static "images/top-wave-banner-sm.png" %}');
+      }
+
+      .full-width-bg-container {
+        background-image: url('{% static "images/header-bg-sm.png" %}');
+      }
+    }
+
+    @media (min-width: 768px) {
+      .top-wave-banner {
+        background-image: url('{% static "images/top-wave-banner-md.png" %}');
+      }
+
+      .full-width-bg-container {
+        background-image: url('{% static "images/header-bg-md.png" %}');
+      }
+    }
+
+    @media (min-width: 992px) {
+      .top-wave-banner {
+        background-image: url('{% static "images/top-wave-banner-lg1.png" %}');
+      }
+
+      .full-width-bg-container {
+        background-image: url('{% static "images/header-bg-lg.png" %}');
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .top-wave-banner {
+        background-image: url('{% static "images/top-wave-banner-lg1.png" %}');
+      }
+
+      .full-width-bg-container {
+        background-image: url('{% static "images/header-bg-xl.png" %}');
+      }
+    }
+
+    @media (min-width: 1280px) and (max-width: 1440px) {
+      .top-wave-banner {
+        background-image: url('{% static "images/laptop_copy.png" %}');
+      }
+      .full-width-bg-container {
+        background-image: url('{% static "images/laptop.png" %}');
+      }
+    }
+
+    /* New styles for the menu */
+    .navbar {
+      padding: 0;
+    }
+
+    .navbar-nav {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .navbar-nav .nav-link {
+      color: #4c9a2a !important;
+      padding: 5px 15px;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-item.show .nav-link {
+      color: white !important;
+      background-color: #4c9a2a;
+      border-radius: 5px;
+    }
+
+    .dropdown-menu {
+      background-color: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 5px;
+    }
+
+    .dropdown-item:hover {
+      background-color: #4c9a2a;
+      color: white;
+    }
+
+    @media (max-width: 991.98px) {
+      .navbar-collapse {
+        position: absolute;
+        top: 100%;
+        right: 15px;
+        left: 15px;
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 15px;
+        border-radius: 5px;
+      }
+    }
+   /* New styles for shadow, cart, and breadcrumbs */
+   .header-wrapper {
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-wrapper {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .cart-icon {
+      width: 30px;
+      height: 30px;
+      background-image: url('{% static "images/creative-cart.png" %}');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      display: inline-block;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .cart-icon:hover {
+      transform: translateY(-5px);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: #ff6b6b;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    @media (max-width: 991.98px) {
+      .cart-wrapper {
+        top: 10px;
+        right: 60px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header-wrapper">
+    <div class="top-wave-banner"></div>
+
+    <div class="contact-bar">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-8 col-md-7 col-sm-12 mb-2 mb-md-0">
+            <span class="mr-3">Tel: +254 722 388 398</span>
+            <span class="mr-3">info@raerex.co.ke</span>
+            Bandari Road, Industrial Area, Real Park Towers, Nairobi, Kenya
+          </div>
+          <div class="col-lg-4 col-md-5 col-sm-12 text-md-right">
+            <a href="#" class="social-icon"></a>
+            <a href="#" class="social-icon"></a>
+            <a href="#" class="social-icon"></a>
+            <a href="#" class="social-icon"></a>
+            <a href="#" class="btn btn-raerex">Go To Raerex Website</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="full-width-bg-container">
+      <div class="container position-relative">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <a class="navbar-brand" href="{% url 'shop:product_list' %}">
+            <img src="{% static 'images/new2.svg' %}" alt="RAEREX Logo" class="img-fluid"
+              style="max-height: 120px; width: 480px; max-width: 500px;">
+          </a>
+
+          <div class="cart-wrapper">
+            <a href="{% url 'cart:cart_detail' %}" class="cart-icon">
+              <span class="cart-count">{{ cart.get_total_items }}</span>
+            </a>
+          </div>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'shop:product_list' %}">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Service
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{% url 'service:service_request' %}">Request Service</a>
+                  <a class="dropdown-item" href="{% url 'service:equipment_list' %}">Equipment List</a>
+                  <a class="dropdown-item" href="{% url 'service:service_history' %}">Service History</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Breadcrumbs for small screens -->
+        <div class="d-lg-none mt-3">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{% url 'shop:product_list' %}">Home</a></li>
+              {% block breadcrumbs %}
+              {% endblock %}
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('.dropdown-toggle').dropdown();
     });
   </script>
 </body>
+
 </html>

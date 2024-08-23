@@ -52,41 +52,81 @@
             .custom-carousel .carousel-control-next:hover {
               background-color: rgba(0, 0, 0, 0.8);
             }
-          </style>
+
+            /* Updated styles for logo container and logos */
+            .logo-container {
+                position: absolute;
+                bottom: 20px;
+                left: 0;
+                right: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: rgba(255, 255, 255, 0.7);
+                padding: 10px 0;
+            }
+            .slider-logo {
+                max-width: 150px;
+                max-height: 150px;
+                margin: 0 10px;
+                object-fit: contain;
+            }
+        </style>
           
-          <div class="container-fluid p-0">
+        <div class="container-fluid p-0">
             <div class="row">
-              <div class="col">
-                <div id="homeCarousel" class="carousel slide custom-carousel" data-bs-ride="carousel">
-                  <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                  </div>
-                  <div class="carousel-inner">
-                    <div class="carousel-item active">
-                      <img src="{% static 'images/banner1.png' %}" class="d-block w-100" alt="Shop Banner">
+                <div class="col">
+                    <div id="homeCarousel" class="carousel slide custom-carousel" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#homeCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{% static 'images/banner1.png' %}" class="d-block w-100" alt="Shop Banner">
+                                <div class="logo-container">
+                                    <img src="{% static 'images/logo1.png' %}" alt="Logo 1" class="slider-logo">
+                                    <img src="{% static 'images/logo2.png' %}" alt="Logo 2" class="slider-logo">
+                                    <img src="{% static 'images/logo3.png' %}" alt="Logo 3" class="slider-logo">
+                                    <img src="{% static 'images/logo4.png' %}" alt="Logo 4" class="slider-logo">
+                                    <img src="{% static 'images/logo5.png' %}" alt="Logo 5" class="slider-logo">
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/banner2.png' %}" class="d-block w-100" alt="Shop Banner">
+                                <div class="logo-container">
+                                    <img src="{% static 'images/logo1.png' %}" alt="Logo 1" class="slider-logo">
+                                    <img src="{% static 'images/logo2.png' %}" alt="Logo 2" class="slider-logo">
+                                    <img src="{% static 'images/logo3.png' %}" alt="Logo 3" class="slider-logo">
+                                    <img src="{% static 'images/logo4.png' %}" alt="Logo 4" class="slider-logo">
+                                    <img src="{% static 'images/logo5.png' %}" alt="Logo 5" class="slider-logo">
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/banner3.png' %}" class="d-block w-100" alt="Shop Banner">
+                                <div class="logo-container">
+                                    <img src="{% static 'images/logo1.png' %}" alt="Logo 1" class="slider-logo">
+                                    <img src="{% static 'images/logo2.png' %}" alt="Logo 2" class="slider-logo">
+                                    <img src="{% static 'images/logo3.png' %}" alt="Logo 3" class="slider-logo">
+                                    <img src="{% static 'images/logo4.png' %}" alt="Logo 4" class="slider-logo">
+                                    <img src="{% static 'images/logo5.png' %}" alt="Logo 5" class="slider-logo">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                    <div class="carousel-item">
-                      <img src="{% static 'images/banner2.png' %}" class="d-block w-100" alt="Shop Banner">
-                    </div>
-                    <div class="carousel-item">
-                      <img src="{% static 'images/banner3.png' %}" class="d-block w-100" alt="Shop Banner">
-                    </div>
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#homeCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#homeCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                  </button>
                 </div>
-              </div>
             </div>
-          </div>  
-   
+        </div>  
+    </div>
 
     <!-- Features Section -->
     <section class="section" style="background-color: #fff;">
@@ -193,38 +233,34 @@
                                                 <span class="product-categories"><a href="{{ product.category.get_absolute_url }}" rel="tag">{{ product.category.name }}</a></span>
                                                 <h5 class="product-title"><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h5>
                                                 <span class="price">
-                                                  {% if product.price < product.price|floatformat:"0" %}
-                                                    <del><span class="amount"><span class="currency-symbol">KES </span>{{ product.price|floatformat:2|intcomma }}</span></del>
-                                                  {% endif %}
-                                                  <ins><span class="amount"><span class="currency-symbol">KES </span>{{ product.price|floatformat:2|intcomma }}</span></ins>
+                                                    {% if product.price < product.price|floatformat:"0" %}
+                                                        <del><span class="amount"><span class="currency-symbol">KES </span>{{ product.price|floatformat:2|intcomma }}</span></del>
+                                                    {% endif %}
+                                                    <ins><span class="amount"><span class="currency-symbol">KES </span>{{ product.price|floatformat:2|intcomma }}</span></ins>
                                                 </span>
                                                 <div class="product-actions">
-
-                                                  <form action="{% url 'cart:cart_add' product.id %}" method="post" style="display: inline;">
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="quantity" value="1">
-                                                    <input type="hidden" name="update" value="False">
-                                                    <button type="submit" class="btn btn-sm btn-success">
-                                                      <i class="fas fa-shopping-cart"></i> Add to Cart
-                                                    </button>
-                                                  </form>
+                                                    <form action="{% url 'cart:cart_add' product.id %}" method="post" style="display: inline;">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="quantity" value="1">
+                                                        <input type="hidden" name="update" value="False">
+                                                        <button type="submit" class="btn btn-sm btn-success">
+                                                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                                                        </button>
+                                                    </form>
                                                 </div>
-                                              </div>
                                             </div>
-                                          </div>
                                         </div>
-                                        <!-- HVAC Product Item End -->
-                                        {% empty %}
-                                        <p>No products found.</p>
-                                        {% endfor %}
-                                      </div>
                                     </div>
-                                    <!-- End HVAC Products Grid -->
-                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                          </section>
+                            {% empty %}
+                                <p>No products found.</p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
 {% endblock %}
 
